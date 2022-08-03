@@ -1,0 +1,15 @@
+description: >
+  This command echos "Hello World" using file inclusion.
+# What will this command do?
+# Descriptions should be short, simple, and clear.
+parameters:
+  statement:
+    type: string
+    default: "hello world"
+    description: "what to echo?"
+steps:
+  - run:
+      environment:
+        PARAM_STATEMENT: <<parameters.statement>>
+      name: echo
+      command: echo "$PARAM_STATEMENT"

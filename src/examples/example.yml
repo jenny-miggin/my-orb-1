@@ -10,4 +10,4 @@ usage:
   workflows:
     use-my-orb:
       jobs:
-        - my-orb-1/greet
+        - my-orb-1/hello

@@ -7,9 +7,14 @@ parameters:
     type: string
     default: "World"
     description: "Hello to whom?"
+  when:
+    type: enum
+    enum: ["always", "on_fail", "on_success"]
+    default: "always"
 steps:
   - run:
       environment:
         PARAM_TO: <<parameters.to>>
       name: Hello Greeting
       command: <<include(scripts/greet.sh)>>
+      when: <<parameters.when>>

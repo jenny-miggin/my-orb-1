@@ -11,4 +11,4 @@ steps:
   - run:
       name: build <<parameters.image-name>> docker image
       command: |
-          docker build -t <<parameters.image-name>> <<include(scripts/Dockerfile)>>
+          docker build -t <<parameters.image-name>> project/src/scripts/Dockerfile

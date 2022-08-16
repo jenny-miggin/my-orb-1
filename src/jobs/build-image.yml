@@ -10,5 +10,6 @@ parameters:
     default: "jenny-test"
     description: "name of docker image being built"
 steps:
+  - checkout
   - docker-build:
       image-name: << parameters.image-name >>

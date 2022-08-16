@@ -1,0 +1,12 @@
+description: >
+  This command sets up Docker Layer Caching within a remote Docker machine, and builds the specified Docker image
+parameters:
+  image-name:
+    type: string
+    default: "jenny-test"
+    description: "name of docker image being built"
+steps:
+  - run:
+      name: scan <<parameters.image-name>> docker image
+      command: |
+          docker scan -t <<parameters.image-name>>

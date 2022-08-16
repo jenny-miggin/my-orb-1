@@ -1,6 +1,5 @@
 description: >
-  Sample description
-# What will this job do?
+  Job to checkout code and build Docker image
 
 executor: docker-build
 
@@ -12,4 +11,6 @@ parameters:
 steps:
   - checkout
   - docker-build:
+      image-name: << parameters.image-name >>
+  - docker-scan:
       image-name: << parameters.image-name >>

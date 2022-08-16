@@ -9,4 +9,4 @@ steps:
   - run:
       name: scan <<parameters.image-name>> docker image
       command: |
-          docker scan -t <<parameters.image-name>>
+          docker scan <<parameters.image-name>>

@@ -1,0 +1,14 @@
+description: >
+  This command sets up Docker Layer Caching within a remote Docker machine, and builds the specified Docker image
+parameters:
+  image-name:
+    type: string
+    default: "jenny-test"
+    description: "name of docker image being built"
+steps:
+  - setup_remote_docker:
+      docker_layer_caching: true
+  - run:
+      name: build <<parameters.image-name>> docker image
+      command: |
+          docker build -t <<parameters.image-name>> scripts/Dockerfile

@@ -1,0 +1,14 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: docker-build
+
+parameters:
+  image-name:
+    type: string
+    default: "jenny-test"
+    description: "name of docker image being built"
+steps:
+  - docker-build:
+      image-name: << parameters.image-name >>

@@ -17,6 +17,7 @@ jobs:
       - checkout
       # Run your orb's commands to validate them.
       - my-orb-1/greet
+      - my-orb-1/echo
 workflows:
   test-deploy:
     jobs:

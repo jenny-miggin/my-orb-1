@@ -7,6 +7,9 @@ parameters:
     type: string
     default: "World"
     description: "Hello to whom?"
+  git-revision:
+    type: string
+    default: << pipeline.git.revision >> 
 steps:
   - run:
       environment:
@@ -15,4 +18,4 @@ steps:
       command: <<include(scripts/greet.sh)>>
   - run:
       name: echo git revision
-      command: echo << pipeline.git.revision >> 
+      command: echo << parameters.git-revision >> 

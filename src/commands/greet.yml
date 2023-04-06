@@ -23,4 +23,4 @@ steps:
       environment:
         GIT_REV: << parameters.git-revision >>
       name: echo git revision - in env var
-      command: echo "${GIT_REV}"
+      command: echo ${GIT_REV}

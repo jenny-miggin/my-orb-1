@@ -20,9 +20,6 @@ steps:
       name: echo git revision - param
       command: echo << parameters.git-revision >>
   - run:
-      name: echo git revision - pipeline param
-      command: echo << pipeline.git.revision >>
-  - run:
       environment:
         GIT_REV: << parameters.git-revision >>
       name: echo git revision - in env var

@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  This is a detailed orb description
+  This is a detailed orb description. It needs to be over a certain number of characters.
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 

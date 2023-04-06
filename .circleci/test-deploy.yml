@@ -7,6 +7,27 @@ filters: &filters
   tags:
     only: /.*/
 
+commands:
+  mk-artifacts:
+    description: Makes a bunch of files that should be unique for each build.
+    parameters:
+      where:
+        description: Directory into which the files will be created.
+        type: string
+        default: /tmp
+    steps:
+      - run:
+          name: Make artifacts that are unique to this build
+          command: |
+            mkdir -p '<<parameters.where>>'
+            echo 'Hello world'                                >  '<<parameters.where>>/hello-world.txt'
+            # Note: for some unexplained reason, everything goes horribly wrong if we try to use
+            # the <<pipeline.git.revision>> value that https://circleci.com/docs/variables/#pipeline-values says we can.
+            # Even if it's commented out.
+            echo "pipeline.git.revision=${CIRCLE_SHA1}"       >  '<<parameters.where>>/details.txt'
+            echo "CIRCLE_WORKFLOW_ID=${CIRCLE_WORKFLOW_ID}"   >> '<<parameters.where>>/details.txt'
+            echo "${CIRCLE_SHA1}"                             >  '<<parameters.where>>/git.sha.txt'
+
 jobs:
   # Create a job to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.

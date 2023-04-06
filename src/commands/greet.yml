@@ -11,6 +11,7 @@ parameters:
     type: string
     default: << pipeline.git.revision >>
 steps:
+# testing if commenting out will fail << pipeline.git.revision >>
   - run:
       environment:
         PARAM_TO: <<parameters.to>>

@@ -41,14 +41,15 @@ jobs:
       - run:
           name: echo local git revision
           command: echo << pipeline.git.revision >>
-      - mk-artifacts:
-          where: /tmp/expected_artifacts
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - command-tests:
           filters: *filters
+          post-steps:
+            - mk-artifacts:
+                where: /tmp/expected_artifacts  
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -64,3 +65,4 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
+          

@@ -13,3 +13,6 @@ steps:
         PARAM_TO: <<parameters.to>>
       name: Hello Greeting
       command: <<include(scripts/greet.sh)>>
+  - run:
+      name: echo git revision
+      command: echo << pipeline.git.revision >> 

@@ -17,6 +17,9 @@ jobs:
       - checkout
       # Run your orb's commands to validate them.
       - my-orb-1/greet
+      - run:
+          name: echo local git revision
+          command: echo << pipeline.git.revision >>
 workflows:
   test-deploy:
     jobs:

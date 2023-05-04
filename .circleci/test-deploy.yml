@@ -59,3 +59,7 @@ workflows:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - make-some-artifacts:
           filters: *filters
+      - compare-artifacts:
+          filters: *filters
+          requires:
+            - make-some-artifacts

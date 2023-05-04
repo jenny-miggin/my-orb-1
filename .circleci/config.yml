@@ -15,9 +15,6 @@ commands:
           command: |
             mkdir -p '<<parameters.where>>'
             echo 'Hello world'                                     >  '<<parameters.where>>/hello-world.txt'
-            # Note: for some unexplained reason, everything goes horribly wrong if we try to use
-            # the <<pipeline.git.revision>> value that https://circleci.com/docs/variables/#pipeline-values says we can.
-            # Even if it's commented out.
             echo "pipeline.git.revision=<<pipeline.git.revision>>" >  '<<parameters.where>>/details.txt'
             echo "CIRCLE_WORKFLOW_ID=${CIRCLE_WORKFLOW_ID}"        >> '<<parameters.where>>/details.txt'
             echo "${CIRCLE_SHA1}"                                  >  '<<parameters.where>>/git.sha.txt'
@@ -38,8 +35,6 @@ commands:
             diff '<<parameters.where>>/git.sha.txt'      '/tmp/expected_artifacts/git.sha.txt'
             diff '<<parameters.where>>/details.txt'      '/tmp/expected_artifacts/details.txt'
 
-# Define job(s) to test the commands of the orb.
-# Where validation is more than just "did it declare success" then we add extra validation steps.
 jobs:
   make-some-artifacts:
     docker:
@@ -54,7 +49,10 @@ jobs:
 workflows:
   test-deploy:
     jobs:
-      - make-some-artifacts:
+      - make-some-artifacts
+      - node/run:
           post-steps:
             - compare-artifacts:
                 where: /tmp/fetched-artifacts
+          requires: 
+            - make-some-artifacts

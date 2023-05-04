@@ -66,5 +66,6 @@ workflows:
           post-steps:
             - compare-artifacts:
                 where: /tmp/fetched-artifacts
-          requires: make-some-artifacts
+          requires: 
+            - make-some-artifacts
       

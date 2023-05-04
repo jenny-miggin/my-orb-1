@@ -54,10 +54,7 @@ jobs:
 workflows:
   test-deploy:
     jobs:
-      - make-some-artifacts
-      - node/run:
+      - make-some-artifacts:
           post-steps:
             - compare-artifacts:
                 where: /tmp/fetched-artifacts
-          requires: 
-            - make-some-artifacts

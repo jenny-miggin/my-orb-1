@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  my-orb-1: jmi-space/my-orb-1@dev:1a7021fc54166f40aa8d071a529961388d8786dd
+  node: circleci/node@5.1.0
 
 commands:
   mk-artifacts:
@@ -55,8 +55,7 @@ workflows:
   test-deploy:
     jobs:
       - make-some-artifacts
-      - my-orb-1/hello:
-          to: Me
+      - node/run:
           post-steps:
             - compare-artifacts:
                 where: /tmp/fetched-artifacts

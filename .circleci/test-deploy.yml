@@ -33,8 +33,8 @@ commands:
         description: Directory where we expect to find artifacts to be compared.
         type: string
     steps:
-      # - mk-artifacts:
-      #     where: /tmp/expected_artifacts
+      - mk-artifacts:
+          where: /tmp/expected_artifacts
       - run:
           name: Compare fetched artifacts to expected contents
           command: |

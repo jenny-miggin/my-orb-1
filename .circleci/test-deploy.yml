@@ -60,8 +60,11 @@ workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
-      - make-some-artifacts:
-          filters: *filters
+      - make-some-artifacts
+      - my-orb-1/hello:
+          to: Me
           post-steps:
             - compare-artifacts:
                 where: /tmp/fetched-artifacts
+          requires: make-some-artifacts
+      

@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  my-orb-1: jmi-space/my-orb-1@dev:<<pipeline.git.revision>>
+  orb-tools: circleci/orb-tools@11.1
 
 filters: &filters
   tags:
@@ -53,11 +56,12 @@ jobs:
       - store_artifacts:
           destination: '.'
           path: dummy-build-artifact/
-      - compare-artifacts:
-          where: /tmp/expected_artifacts
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - make-some-artifacts:
           filters: *filters
+          post-steps:
+            - compare-artifacts:
+                where: /tmp/fetched-artifacts

@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  my-orb-1: jmi-space/my-orb-1@dev:<<pipeline.git.revision>>
+  my-orb-1: jmi-space/my-orb-1@dev:1a7021fc54166f40aa8d071a529961388d8786dd
   orb-tools: circleci/orb-tools@11.1
 
 filters: &filters

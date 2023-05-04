@@ -41,6 +41,7 @@ jobs:
       - run:
           name: echo local git revision
           command: echo << pipeline.git.revision >>
+      - mk-artifacts
 workflows:
   test-deploy:
     jobs:

@@ -53,7 +53,8 @@ jobs:
       - store_artifacts:
           destination: '.'
           path: dummy-build-artifact/
-      - compare-artifacts
+      - compare-artifacts:
+          where: /tmp/expected_artifacts
 workflows:
   test-deploy:
     jobs:

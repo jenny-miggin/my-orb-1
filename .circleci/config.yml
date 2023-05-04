@@ -1,35 +1,70 @@
 version: 2.1
-setup: true
 orbs:
+  my-orb-1: jmi-space/my-orb-1@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.1
-  shellcheck: circleci/shellcheck@3.1
 
 filters: &filters
   tags:
     only: /.*/
 
+commands:
+  mk-artifacts:
+    description: Makes a bunch of files that should be unique for each build.
+    parameters:
+      where:
+        description: Directory into which the files will be created.
+        type: string
+    steps:
+      - run:
+          name: Make artifacts that are unique to this build
+          command: |
+            mkdir -p '<<parameters.where>>'
+            echo 'Hello world'                                     >  '<<parameters.where>>/hello-world.txt'
+            # Note: for some unexplained reason, everything goes horribly wrong if we try to use
+            # the <<pipeline.git.revision>> value that https://circleci.com/docs/variables/#pipeline-values says we can.
+            # Even if it's commented out.
+            echo "pipeline.git.revision=<<pipeline.git.revision>>" >  '<<parameters.where>>/details.txt'
+            echo "CIRCLE_WORKFLOW_ID=${CIRCLE_WORKFLOW_ID}"        >> '<<parameters.where>>/details.txt'
+            echo "${CIRCLE_SHA1}"                                  >  '<<parameters.where>>/git.sha.txt'
+  compare-artifacts:
+    description: Compared a bunch of files to see if they are the same as those we'd make using the mk-artifacts command.
+    parameters:
+      where:
+        description: Directory where we expect to find artifacts to be compared.
+        type: string
+    steps:
+      - mk-artifacts:
+          where: /tmp/expected_artifacts
+      - run:
+          name: Compare fetched artifacts to expected contents
+          command: |
+            for F in /tmp/expected_artifacts/*.txt; do echo; echo "### File ${F}"; cat "${F}"; done
+            diff '<<parameters.where>>/hello-world.txt'  '/tmp/expected_artifacts/hello-world.txt'
+            diff '<<parameters.where>>/git.sha.txt'      '/tmp/expected_artifacts/git.sha.txt'
+            diff '<<parameters.where>>/details.txt'      '/tmp/expected_artifacts/details.txt'
+
+# Define job(s) to test the commands of the orb.
+# Where validation is more than just "did it declare success" then we add extra validation steps.
+jobs:
+  make-some-artifacts:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - mk-artifacts:
+          where: dummy-build-artifact
+      - store_artifacts:
+          destination: '.'
+          path: dummy-build-artifact/
 workflows:
-  lint-pack:
+  test-deploy:
     jobs:
-      - orb-tools/lint:
-          filters: *filters
-      - orb-tools/pack:
-          filters: *filters
-      - orb-tools/review:
-          filters: *filters
-      - shellcheck/check:
-          filters: *filters
-      - orb-tools/publish:
-          orb-name: jmi-space/my-orb-1
-          vcs-type: << pipeline.project.type >>
-          requires:
-            [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
-          # Use a context to hold your publishing token.
-          context: orb-publishing
-          filters: *filters
-      # Triggers the next workflow in the Orb Development Kit.
-      - orb-tools/continue:
-          pipeline-number: << pipeline.number >>
-          vcs-type: << pipeline.project.type >>
-          requires: [orb-tools/publish]
-          filters: *filters
+      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      - make-some-artifacts
+      - my-orb-1/hello:
+          to: Me
+          post-steps:
+            - compare-artifacts:
+                where: /tmp/fetched-artifacts
+          requires: 
+            - make-some-artifacts

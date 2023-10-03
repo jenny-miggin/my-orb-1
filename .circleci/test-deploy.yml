@@ -13,10 +13,12 @@ jobs:
   command-tests:
     docker:
       - image: cimg/base:current
+    environment:
+      REGION: eu-west-1
     steps:
       - checkout
       - my-orb-1/envvar-check:
-          region: eu-west-1
+          region: $REGION
 workflows:
   test-deploy:
     jobs:

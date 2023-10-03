@@ -11,14 +11,12 @@ jobs:
   # Create a job to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-tests:
-    environment:
-      AWS_REGION: "eu-west-1"
     docker:
       - image: cimg/base:current
     steps:
       - checkout
       - my-orb-1/envvar-check:
-          AWS_REGION: $AWS_REGION
+          AWS_REGION: eu-west-1
 workflows:
   test-deploy:
     jobs:

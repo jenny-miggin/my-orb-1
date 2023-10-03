@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - my-orb-1/envvar-check:
-          AWS_REGION: eu-west-1
+          region: eu-west-1
 workflows:
   test-deploy:
     jobs:

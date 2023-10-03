@@ -13,12 +13,9 @@ jobs:
   command-tests:
     docker:
       - image: cimg/base:current
-    environment:
-      REGION: eu-west-1
     steps:
       - checkout
-      - my-orb-1/envvar-check:
-          region: REGION
+      - my-orb-1/envvar-check
 workflows:
   test-deploy:
     jobs:

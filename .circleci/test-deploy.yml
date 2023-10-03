@@ -12,13 +12,13 @@ jobs:
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-tests:
     environment:
-      REGION: "eu-west-1"
+      AWS_REGION: "eu-west-1"
     docker:
       - image: cimg/base:current
     steps:
       - checkout
       - my-orb-1/envvar-check:
-          REGION: $region
+          AWS_REGION: $AWS_REGION
 workflows:
   test-deploy:
     jobs:

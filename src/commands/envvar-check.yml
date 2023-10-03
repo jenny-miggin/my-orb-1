@@ -1,0 +1,12 @@
+description: >
+  This command checks an env var and echoes it
+# What will this command do?
+# Descriptions should be short, simple, and clear.
+parameters:
+  region:
+    type: env_var_name
+    default: AWS_REGION
+steps:
+  - run:
+      name: echo
+      command: echo ${<< parameters.region >>}

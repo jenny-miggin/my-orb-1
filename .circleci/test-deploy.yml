@@ -15,8 +15,8 @@ jobs:
       - image: cimg/base:current
     steps:
       - checkout
-      # Run your orb's commands to validate them.
-      - my-orb-1/greet
+      - my-orb-1/envvar-check:
+          region: "eu-west-1"
 workflows:
   test-deploy:
     jobs:

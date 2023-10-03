@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - my-orb-1/envvar-check:
-          region: $REGION
+          region: REGION
 workflows:
   test-deploy:
     jobs:

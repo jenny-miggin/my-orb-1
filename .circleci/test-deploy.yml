@@ -16,16 +16,6 @@ jobs:
     steps:
       - checkout
       - my-orb-1/envvar-check
-  envvar-check-match:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - when:
-          condition:
-            equal: [ "jenny-miggin", $CIRCLE_PROJECT_USERNAME ]
-          steps:
-            - run: echo "it matches"
-      - my-orb-1/envvar-check
 workflows:
   test-deploy:
     jobs:

@@ -10,8 +10,11 @@ steps:
   - run:
       name: echo
       command: echo ${<< parameters.project >>}
-  - when:
-      condition:
-        equal: [ "jenny-miggin", "${<< parameters.project >>}" ]
-      steps:
-        - run: echo "it matches"
+  - run:
+      name: echo
+      command: |
+        if ${<< parameters.project >>} == "jenny-miggin"; then 
+          echo "it's a match"
+        else
+          echo "it's not a match"
+        fi

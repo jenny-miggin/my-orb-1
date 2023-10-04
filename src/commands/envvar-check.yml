@@ -13,7 +13,7 @@ steps:
   - run:
       name: echo
       command: |
-        if ${<< parameters.project >>} == "jenny-miggin"; then
+        if [ ${<< parameters.project >>} == "jenny-miggin" ]; then
           echo "it's a match"
         else
           echo "it's not a match"

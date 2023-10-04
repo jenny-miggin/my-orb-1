@@ -11,7 +11,7 @@ steps:
       name: echo
       command: echo ${<< parameters.project >>}
   - when:
-    condition:
-      equal: [ "jenny-miggin", << parameters.project >> ]
-    steps:
-      - run: echo "it matches"
+      condition:
+        equal: [ "jenny-miggin", << parameters.project >> ]
+      steps:
+        - run: echo "it matches"

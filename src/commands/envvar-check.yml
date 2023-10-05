@@ -6,21 +6,16 @@ parameters:
   project:
     type: env_var_name
     default: CIRCLE_PROJECT_USERNAME
+  project_url:
+    type: string
+    default: << pipeline.project.git_url >>
 steps:
   - run:
       name: echo the param
-      command: echo << pipeline.project.git_url >>
-  - run:
-      name: echo if matches
-      command: |
-        if [ ${<< parameters.project >>} == "jenny-miggin" ]; then
-          echo "it matches"
-        else
-          echo "it doesn't match"
-        fi
+      command: echo << parameters.project_url >>
   - when:
       condition:
-        equal: [ "https://github.com/jenny-miggin/my-orb-1", << pipeline.project.git_url >> ]
+        equal: [ "https://github.com/jenny-miggin/my-orb-1", << parameters.project_url >> ]
       steps:
         - run:
             name: the when condition worked

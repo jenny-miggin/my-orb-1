@@ -20,7 +20,7 @@ steps:
         fi
   - when:
       condition:
-        equal: [ jenny-miggin, << parameters.project >>]
+        equal: [ jenny-miggin, $CIRCLE_PROJECT_USERNAME ]
       steps:
         - run:
             name: the when condition worked

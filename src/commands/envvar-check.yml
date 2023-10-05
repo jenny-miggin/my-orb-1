@@ -8,13 +8,19 @@ parameters:
     default: CIRCLE_PROJECT_USERNAME
 steps:
   - run:
-      name: echo
+      name: echo the param
       command: echo ${<< parameters.project >>}
   - run:
-      name: echo
+      name: echo if matches
       command: |
         if [ ${<< parameters.project >>} == "jenny-miggin" ]; then
           echo "it matches"
         else
           echo "it doesn't match"
         fi
+  - when:
+      condition: [ jenny-miggin, << parameters.project >>]
+      steps:
+        - run: 
+            name: the when condition worked
+            command: echo "this also matches"

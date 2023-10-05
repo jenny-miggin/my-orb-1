@@ -14,7 +14,7 @@ steps:
       name: echo
       command: |
         if [ ${<< parameters.project >>} == "jenny-miggin" ]; then
-          echo "it's a match"
+          echo "it matches"
         else
-          echo "it's not a match"
+          echo "it doesn't match"
         fi

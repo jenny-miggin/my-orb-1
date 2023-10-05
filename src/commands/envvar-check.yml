@@ -19,9 +19,9 @@ steps:
           echo "it doesn't match"
         fi
   - when:
-      condition: 
+      condition:
         equal: [ jenny-miggin, << parameters.project >>]
       steps:
-        - run: 
+        - run:
             name: the when condition worked
             command: echo "this also matches"

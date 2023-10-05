@@ -9,7 +9,7 @@ parameters:
 steps:
   - run:
       name: echo the param
-      command: echo ${<< parameters.project >>}
+      command: echo << pipeline.project.git_url >>
   - run:
       name: echo if matches
       command: |
@@ -20,7 +20,7 @@ steps:
         fi
   - when:
       condition:
-        equal: [ jenny-miggin, $CIRCLE_PROJECT_USERNAME ]
+        equal: [ "https://github.com/jenny-miggin/my-orb-1", << pipeline.project.git_url >> ]
       steps:
         - run:
             name: the when condition worked

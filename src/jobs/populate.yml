@@ -1,0 +1,11 @@
+description: >
+  Sample description
+# What will this job do?
+
+executor: default
+
+steps:
+  - checkout
+  - run:
+      name: populate
+      command: echo "populating the database"

@@ -6,7 +6,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    my-orb-1: jmi-space/my-orb-1@0.0.1
+    my-orb-1: jmi-space/my-orb-1@0
   workflows:
     use-my-orb:
       jobs:

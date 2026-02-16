@@ -1,5 +1,5 @@
 description: >
-  This is checking out code from a git repository.
+  This is checking out code from a git repository. This is a command that is used to checkout code from a git repository. It is used to get the code from the git repository and put it in the working directory.
 # What will this command do?
 # Descriptions should be short, simple, and clear.
 steps:
